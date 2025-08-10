@@ -45,7 +45,7 @@ int main(void) {
   app.frame_loc = GetShaderLocation(app.shader, "frameCount");
 
 #if defined(PLATFORM_WEB)
-  emscripten_set_main_loop(render_loop, 60, 1);
+  emscripten_set_main_loop(render_loop, 0, 1);
 #else
   SetTargetFPS(120);
 
