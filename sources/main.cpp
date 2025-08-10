@@ -18,10 +18,15 @@ void render_loop() {
   ClearBackground(RAYWHITE);
 
   app.time += GetFrameTime();
+  app.frame++;
   SetShaderValue(app.shader, app.time_loc, &app.time, SHADER_UNIFORM_FLOAT);
+  SetShaderValue(app.shader, app.frame_loc, &app.frame, SHADER_UNIFORM_INT);
 
   BeginShaderMode(app.shader);
-  DrawTexture(app.texture, 0, 0, WHITE);
+  DrawTextureRec(
+      app.texture,
+      (Rectangle){0, 0, (float)app.texture.width, (float)-app.texture.height},
+      (Vector2){0, 0}, WHITE);
   EndShaderMode();
 
   EndDrawing();
@@ -37,6 +42,7 @@ int main(void) {
   app.texture = texture;
   app.shader = LoadShader(0, TextFormat(ASSETS_PATH "shader.fs", GLSL_VERSION));
   app.time_loc = GetShaderLocation(app.shader, "time");
+  app.frame_loc = GetShaderLocation(app.shader, "frameCount");
 
 #if defined(PLATFORM_WEB)
   emscripten_set_main_loop(render_loop, 60, 1);
