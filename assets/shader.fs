@@ -10,24 +10,20 @@ uniform int frameCount;
 const float resolutionX = 1920.;
 const float resolutionY = 1080.;
 
-vec4 color = vec4(0);
+vec4 color = vec4(1., 0., 0., 1.);
 
 float random(in float seed) {
     return fract(sin(seed) * 43758.5453123);
 }
 
+vec4 noise(in float seed) {
+    vec4(random(seed), random(seed + 1.), random(seed + 2.), 1.)
+}
+
 void main()
 {
     if (fragColor.r > 0.5) {
-        color = vec4(
-                random(time + fragTexCoord.x * resolutionX + fragTexCoord.y),
-                random(time + fragTexCoord.x * resolutionX + fragTexCoord.y + 1.),
-                random(time + fragTexCoord.x * resolutionX + fragTexCoord.y + 2.),
-                1.
-            );
-        // color = vec4(0., 0., 1., 1.);
-    } else {
-        color = vec4(0., 0., 0., 1.);
+        color = noise(time + fragTexCoord.x * resolutionX + fragTexCoord.y);
     }
     gl_FragColor = color;
 }
