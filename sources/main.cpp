@@ -1,33 +1,50 @@
+#if defined(PLATFORM_WEB)
+#include "emscripten.h"
+#endif
+#include "main.h"
 #include "raylib.h"
 
 #define SCREEN_WIDTH (800)
 #define SCREEN_HEIGHT (450)
 
 #define WINDOW_TITLE "Window title"
+#define GLSL_VERSION 100
+
+App app;
+void render_loop() {
+  BeginDrawing();
+
+  ClearBackground(RAYWHITE);
+
+  BeginShaderMode(app.shader);
+  DrawTexture(app.texture, 0, 0, WHITE);
+  EndShaderMode();
+
+  EndDrawing();
+  return;
+}
 
 int main(void) {
   InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, WINDOW_TITLE);
   SetTargetFPS(60);
+  SetConfigFlags(FLAG_MSAA_4X_HINT);
 
-  Texture2D texture =
-      LoadTexture(ASSETS_PATH "test.png"); // Check README.md for how this works
+  Texture2D texture = LoadTexture(ASSETS_PATH "test.png");
+  app.texture = texture;
+  app.shader = LoadShader(0, TextFormat(ASSETS_PATH "shader.fs", GLSL_VERSION));
+  app.time_loc = GetShaderLocation(app.shader, "time");
+  float time_var = GetTime();
+
+  SetShaderValue(app.shader, app.time_loc, &time_var, SHADER_UNIFORM_FLOAT);
+#if defined(PLATFORM_WEB)
+  emscripten_set_main_loop(render_loop, 60, 1);
+#else
+  SetTargetFPS(60);
 
   while (!WindowShouldClose()) {
-    BeginDrawing();
-
-    ClearBackground(RAYWHITE);
-
-    const int texture_x = SCREEN_WIDTH / 2 - texture.width / 2;
-    const int texture_y = SCREEN_HEIGHT / 2 - texture.height / 2;
-    DrawTexture(texture, texture_x, texture_y, WHITE);
-
-    const char *text = "OMG! IT WORKS!";
-    const Vector2 text_size = MeasureTextEx(GetFontDefault(), text, 20, 1);
-    DrawText(text, SCREEN_WIDTH / 2 - text_size.x / 2,
-             texture_y + texture.height + text_size.y + 10, 20, BLACK);
-
-    EndDrawing();
+    UpdateDrawFrame();
   }
+#endif
 
   CloseWindow();
 
