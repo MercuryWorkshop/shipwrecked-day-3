@@ -17,7 +17,7 @@ float random(in float seed) {
 }
 
 vec4 noise(in float seed) {
-    vec4(random(seed), random(seed + 1.), random(seed + 2.), 1.)
+    return vec4(random(seed), random(seed + 1.), random(seed + 2.), 1.);
 }
 
 void main()
