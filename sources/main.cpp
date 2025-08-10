@@ -13,25 +13,29 @@
 
 App app;
 void render_loop() {
-  BeginDrawing();
 
   app.time += GetFrameTime();
   app.frame++;
   SetShaderValue(app.shader, app.time_loc, &app.time, SHADER_UNIFORM_FLOAT);
   SetShaderValue(app.shader, app.frame_loc, &app.frame, SHADER_UNIFORM_INT);
 
-  BeginShaderMode(app.shader);
-  BeginMode3D(app.camera);
+  BeginTextureMode(app.target);
   ClearBackground(BLACK);
-
-  DrawPlane({0, 0, 0}, {100, 100}, BLACK);
+  BeginMode3D(app.camera);
   DrawSphere({0, 1, 0}, 1, WHITE);
-  DrawTextureRec(
-      app.texture,
-      (Rectangle){0, 0, (float)app.texture.width, (float)-app.texture.height},
-      (Vector2){0, 0}, WHITE);
-
+  // DrawPlane({0, 0, 0}, {100, 100}, BLACK);
   EndMode3D();
+  EndTextureMode();
+
+  BeginDrawing();
+  ClearBackground(WHITE);
+
+  BeginShaderMode(app.shader);
+  DrawTextureRec(app.target.texture,
+                 (Rectangle){0, 0, (float)app.target.texture.width,
+                             (float)-app.target.texture.height},
+                 (Vector2){0, 0}, WHITE);
+
   EndShaderMode();
 
   EndDrawing();

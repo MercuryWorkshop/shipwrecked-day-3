@@ -25,5 +25,5 @@ void main()
     if (fragColor.r > 0.5) {
         color = noise(time + fragTexCoord.x * resolutionX + fragTexCoord.y);
     }
-    gl_FragColor = color;
+    gl_FragColor = vec4(fragTexCoord.x, fragTexCoord.y, 1., 1.);
 }
