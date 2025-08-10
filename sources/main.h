@@ -8,4 +8,5 @@ struct App {
   float time = 0;
   int frame = 0;
   Camera camera;
+  RenderTexture2D target;
 };

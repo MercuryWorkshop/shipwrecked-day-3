@@ -15,24 +15,24 @@ App app;
 void render_loop() {
   BeginDrawing();
 
-  ClearBackground(RAYWHITE);
-
   app.time += GetFrameTime();
   app.frame++;
   SetShaderValue(app.shader, app.time_loc, &app.time, SHADER_UNIFORM_FLOAT);
   SetShaderValue(app.shader, app.frame_loc, &app.frame, SHADER_UNIFORM_INT);
 
-  BeginMode3D(app.camera);
   BeginShaderMode(app.shader);
+  BeginMode3D(app.camera);
+  ClearBackground(BLACK);
 
-  DrawSphere({0, 0, 0}, 1, BLACK);
+  DrawPlane({0, 0, 0}, {100, 100}, BLACK);
+  DrawSphere({0, 1, 0}, 1, WHITE);
   DrawTextureRec(
       app.texture,
       (Rectangle){0, 0, (float)app.texture.width, (float)-app.texture.height},
       (Vector2){0, 0}, WHITE);
 
-  EndShaderMode();
   EndMode3D();
+  EndShaderMode();
 
   EndDrawing();
   return;
@@ -54,6 +54,7 @@ int main(void) {
   app.camera.up = (Vector3){0.0f, 1.0f, 0.0f};
   app.camera.fovy = 45.0f;
   app.camera.projection = CAMERA_PERSPECTIVE;
+  app.target = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
 
 #if defined(PLATFORM_WEB)
   emscripten_set_main_loop(render_loop, 0, 1);
