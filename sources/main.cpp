@@ -1,3 +1,4 @@
+#include <cstdio>
 #if defined(PLATFORM_WEB)
 #include "emscripten.h"
 #endif
@@ -16,6 +17,9 @@ void render_loop() {
 
   ClearBackground(RAYWHITE);
 
+  app.time += GetFrameTime();
+  SetShaderValue(app.shader, app.time_loc, &app.time, SHADER_UNIFORM_FLOAT);
+
   BeginShaderMode(app.shader);
   DrawTexture(app.texture, 0, 0, WHITE);
   EndShaderMode();
@@ -33,9 +37,7 @@ int main(void) {
   app.texture = texture;
   app.shader = LoadShader(0, TextFormat(ASSETS_PATH "shader.fs", GLSL_VERSION));
   app.time_loc = GetShaderLocation(app.shader, "time");
-  float time_var = GetTime();
 
-  SetShaderValue(app.shader, app.time_loc, &time_var, SHADER_UNIFORM_FLOAT);
 #if defined(PLATFORM_WEB)
   emscripten_set_main_loop(render_loop, 60, 1);
 #else
