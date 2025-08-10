@@ -7,4 +7,5 @@ struct App {
   int frame_loc;
   float time = 0;
   int frame = 0;
+  Camera camera;
 };
