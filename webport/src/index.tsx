@@ -44,7 +44,7 @@ const App: Component<{}, { playing: boolean, }> = function() {
 					<Card variant="elevated">
 						<div class="m3dl-font-headline-medium"><b>William Daniel Torus</b></div>
 						<div>
-							Defeating William Daniel with an invisible torus
+							Defeating William Daniel with an invisible torus. Hold up arrow to morph the torus into a cube, and press left arrow to toggle between noise and smooth rendering.
 						</div>
 					</Card>
 				</div>

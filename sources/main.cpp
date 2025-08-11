@@ -27,12 +27,16 @@ void render_loop() {
 
     if (IsKeyDown(KEY_DOWN))
       app.mix -= GetFrameTime() / 10;
+
+    if (IsKeyPressed(KEY_LEFT))
+        app.flip = !app.flip;
   }
   printf("%f\n", app.mix);
 
   SetShaderValue(app.shader, app.time_loc, &app.time, SHADER_UNIFORM_FLOAT);
   SetShaderValue(app.shader, app.mix_loc, &app.mix, SHADER_UNIFORM_FLOAT);
   SetShaderValue(app.shader, app.frame_loc, &app.frame, SHADER_UNIFORM_INT);
+  SetShaderValue(app.shader, app.flip_loc, &app.flip, SHADER_UNIFORM_INT);
 
   BeginTextureMode(app.target);
   ClearBackground(BLACK);
@@ -68,6 +72,7 @@ int main(void) {
   app.time_loc = GetShaderLocation(app.shader, "time");
   app.frame_loc = GetShaderLocation(app.shader, "frameCount");
   app.mix_loc = GetShaderLocation(app.shader, "mix_val");
+  app.flip_loc = GetShaderLocation(app.shader, "bw");
   app.camera = {};
   app.camera.position = (Vector3){0, 4.0f, 4.0f};
   app.camera.target = (Vector3){0.0f, 1.0f, -1.0f};

@@ -6,6 +6,7 @@ varying vec4 fragColor;
 
 uniform float time;
 uniform float mix_val;
+uniform int bw;
 uniform int frameCount;
 
 const float resolutionX = 1920.;
@@ -84,5 +85,8 @@ void main()
         seed -= float(mod(frameCount, 5000) * blinkRate);
     }
     color = noise(seed);
+    if(bw == 1) {
+        color = vec4(vec3(t), 1.0);
+    }
     gl_FragColor = color;
 }
