@@ -76,7 +76,6 @@ int main(void) {
     UpdateDrawFrame();
   }
 #endif
-
   CloseWindow();
 
   return 0;

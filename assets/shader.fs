@@ -38,22 +38,22 @@ float sdSphere( vec3 p, float s )
 
 float map( in vec3 pos )
 {
-    return sdTorus(vec3(-pos.y, pos.x, pos.z), vec2(0.2, 0.1));
+    return sdTorus(vec3(-pos.y, pos.x, pos.z), vec2(0.2, 0.04));
 }
 
 void main()
 {
     float an = 0.5*(time-10.0);
-    vec3 ro = vec3( 0.7*cos(an), 0.1, 0.7*sin(an) );
+    vec3 ro = vec3( 0.7*cos(an), 0.7*cos(an), 0.7*sin(an) );
     vec3 ta = vec3( 0.0, 0.0, 0.0 );
     // camera matrix
     vec3 ww = normalize( ta - ro );
     vec3 uu = normalize( cross(ww,vec3(0.0,1.0,0.0) ) );
     vec3 vv = normalize( cross(uu,ww));
 
-        
+
     vec3 tot = vec3(0.0);
-     
+
     vec2 p = (-vec2(resolutionX, resolutionY) + 4.0*gl_FragCoord.xy)/resolutionY;
 
 	    // create view ray
