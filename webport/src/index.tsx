@@ -43,9 +43,8 @@ const App: Component<{}, { playing: boolean, }> = function() {
 				<div class="corner">
 					<Card variant="elevated">
 						<div class="m3dl-font-headline-medium"><b>William Daniel Torus</b></div>
-						<div class="m3dl-font-headline-medium"><b>Static Noise</b></div>
 						<div>
-							Tricking your brain into recognizing objects in completely random static noise
+							Defeating William Daniel with an invisible torus
 						</div>
 					</Card>
 				</div>
