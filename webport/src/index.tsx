@@ -42,7 +42,7 @@ const App: Component<{}, { playing: boolean, }> = function() {
 				</div>
 				<div class="corner">
 					<Card variant="elevated">
-						<div class="m3dl-font-headline-medium"><b>Static Noise Text</b></div>
+						<div class="m3dl-font-headline-medium"><b>William Daniel Torus</b></div>
 						<div>
 							Tricking your brain into recognizing objects in completely random static noise
 						</div>
