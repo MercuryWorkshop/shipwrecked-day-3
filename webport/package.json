@@ -15,6 +15,7 @@
 		"typescript": "^5.9.2"
 	},
 	"dependencies": {
+		"@ktibow/iconset-material-symbols": "^0.0.1754804347",
 		"dreamland": "github:mercuryworkshop/dreamlandjs#vdom",
 		"m3-dreamland": "github:r58playz/m3-dreamland"
 	}

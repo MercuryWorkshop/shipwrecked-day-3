@@ -1,4 +1,15 @@
-import { Component } from "dreamland/core";
+import { Component, css } from "dreamland/core";
+import { argbFromHex, Card, DynamicScheme, Hct, Icon, SchemeStyles, ToggleButton, Variant } from "m3-dreamland";
+import playArrow from "@ktibow/iconset-material-symbols/play-arrow";
+import pause from "@ktibow/iconset-material-symbols/pause";
+
+let scheme = new DynamicScheme({
+	sourceColorHct: Hct.fromInt(argbFromHex("CBA6F7")),
+	contrastLevel: 0,
+	specVersion: "2025",
+	variant: Variant.TONAL_SPOT,
+	isDark: true,
+});
 
 let canvasElement = document.querySelector("canvas.emscripten");
 canvasElement.addEventListener("webglcontextlost", (e) => {
@@ -13,10 +24,46 @@ canvasElement.addEventListener("webglcontextlost", (e) => {
 	canvas: canvasElement,
 };
 
-const App: Component<{}> = function() {
+const App: Component<{}, { playing: boolean, }> = function() {
+	this.playing = true;
+
 	return (
 		<div id="app">
+			<SchemeStyles scheme={scheme} motion="expressive">
+				<div class="bottom">
+					<ToggleButton variant="elevated" icon="full" size="xl" value={use(this.playing)}>
+						<Icon icon={use(this.playing).andThen(pause, playArrow)} />
+					</ToggleButton>
+				</div>
+				<div class="corner">
+					<Card variant="elevated">
+						Static Noise Text
+					</Card>
+				</div>
+			</SchemeStyles>
 		</div>
 	)
 }
+App.style = css`
+	:scope :global(.m3dl-scheme-styles) {
+		font: var(--m3dl-font);
+		height: 100%;
+		position: relative;
+	}
+
+	.bottom {
+		position: absolute;
+		bottom: 1rem;
+		width: 100%;
+		display: flex;
+		justify-content: center;
+	}
+	.bottom > :global(.m3dl-button) { pointer-events: auto }
+
+	.corner {
+		position: absolute;
+		right: 1rem;
+		bottom: 1rem;
+	}
+`;
 document.querySelector("#app").replaceWith(<App />);
