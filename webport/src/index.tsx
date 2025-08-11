@@ -28,6 +28,10 @@ canvasElement.addEventListener("webglcontextlost", (e) => {
 const App: Component<{}, { playing: boolean, }> = function() {
 	this.playing = true;
 
+	use(this.playing).listen(x=>{
+		(self as any).Module._set_enable_render_(x);
+	});
+
 	return (
 		<div id="app">
 			<SchemeStyles scheme={scheme} motion="expressive">

@@ -11,34 +11,41 @@
 #define WINDOW_TITLE "Window title"
 #define GLSL_VERSION 100
 
+static bool enable_render = true;
+
+extern "C" {
+void set_enable_render_(bool enable) { enable_render = enable; }
+}
+
 App app;
 void render_loop() {
-
   app.time += GetFrameTime();
   app.frame++;
-  SetShaderValue(app.shader, app.time_loc, &app.time, SHADER_UNIFORM_FLOAT);
-  SetShaderValue(app.shader, app.frame_loc, &app.frame, SHADER_UNIFORM_INT);
+  if (enable_render) {
+    SetShaderValue(app.shader, app.time_loc, &app.time, SHADER_UNIFORM_FLOAT);
+    SetShaderValue(app.shader, app.frame_loc, &app.frame, SHADER_UNIFORM_INT);
 
-  BeginTextureMode(app.target);
-  ClearBackground(BLACK);
-  BeginMode3D(app.camera);
-  DrawSphere({0, 1, 0}, 1, WHITE);
-  // DrawPlane({0, 0, 0}, {100, 100}, BLACK);
-  EndMode3D();
-  EndTextureMode();
+    BeginTextureMode(app.target);
+    ClearBackground(BLACK);
+    BeginMode3D(app.camera);
+    DrawSphere({0, 1, 0}, 1, WHITE);
+    // DrawPlane({0, 0, 0}, {100, 100}, BLACK);
+    EndMode3D();
+    EndTextureMode();
 
-  BeginDrawing();
-  ClearBackground(WHITE);
+    BeginDrawing();
+    ClearBackground(WHITE);
 
-  BeginShaderMode(app.shader);
-  DrawTextureRec(app.target.texture,
-                 (Rectangle){0, 0, (float)app.target.texture.width,
-                             (float)-app.target.texture.height},
-                 (Vector2){0, 0}, WHITE);
+    BeginShaderMode(app.shader);
+    DrawTextureRec(app.target.texture,
+                   (Rectangle){0, 0, (float)app.target.texture.width,
+                               (float)-app.target.texture.height},
+                   (Vector2){0, 0}, WHITE);
 
-  EndShaderMode();
+    EndShaderMode();
 
-  EndDrawing();
+    EndDrawing();
+  }
   return;
 }
 
