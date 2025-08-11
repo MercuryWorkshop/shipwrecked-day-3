@@ -9,6 +9,7 @@ uniform int frameCount;
 
 const float resolutionX = 1920.;
 const float resolutionY = 1080.;
+const int blinkRate = 60; // higher number = slower change
 
 vec4 color = vec4(1., 0., 0., 1.);
 
@@ -22,8 +23,13 @@ vec4 noise(in float seed) {
 
 void main()
 {
-    if (fragColor.r > 0.5) {
-        color = noise(time + fragTexCoord.x * resolutionX + fragTexCoord.y);
+    // if (fragColor.r > 0.5) {
+    if (true) {
+        color = noise(
+                float(frameCount / blinkRate) +
+                    fragTexCoord.x * resolutionX +
+                    (fragTexCoord.y + float(frameCount / blinkRate))
+            );
     }
-    gl_FragColor = vec4(fragTexCoord.x, fragTexCoord.y, 1., 1.);
+    gl_FragColor = color;
 }
