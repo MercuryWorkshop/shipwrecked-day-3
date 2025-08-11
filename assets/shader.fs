@@ -9,7 +9,7 @@ uniform int frameCount;
 
 const float resolutionX = 1920.;
 const float resolutionY = 1080.;
-const int blinkRate = 60; // higher number = slower change
+const int blinkRate = 2; // higher number = slower change
 
 vec4 color = vec4(1., 0., 0., 1.);
 

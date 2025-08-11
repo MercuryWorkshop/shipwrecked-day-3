@@ -42,7 +42,10 @@ const App: Component<{}, { playing: boolean, }> = function() {
 				</div>
 				<div class="corner">
 					<Card variant="elevated">
-						Static Noise Text
+						<div class="m3dl-font-headline-medium"><b>Static Noise Text</b></div>
+						<div>
+							Tricking your brain into recognizing objects in completely random static noise
+						</div>
 					</Card>
 				</div>
 			</SchemeStyles>
@@ -71,6 +74,7 @@ App.style = css`
 		position: absolute;
 		right: 1rem;
 		bottom: 1rem;
+		max-width: 15%;
 	}
 `;
 document.querySelector("#app").replaceWith(<App />);
