@@ -8,7 +8,7 @@
 #define SCREEN_WIDTH (800)
 #define SCREEN_HEIGHT (450)
 
-#define WINDOW_TITLE "Window title"
+#define WINDOW_TITLE "Static Noise"
 #define GLSL_VERSION 100
 
 static bool enable_render = true;
