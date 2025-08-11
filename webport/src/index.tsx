@@ -1,5 +1,5 @@
 import { Component, css } from "dreamland/core";
-import { argbFromHex, DynamicScheme, Hct, Icon, SchemeStyles, ToggleButton, Variant } from "m3-dreamland";
+import { argbFromHex, Card, DynamicScheme, Hct, Icon, SchemeStyles, ToggleButton, Variant } from "m3-dreamland";
 import playArrow from "@ktibow/iconset-material-symbols/play-arrow";
 import pause from "@ktibow/iconset-material-symbols/pause";
 
@@ -35,6 +35,11 @@ const App: Component<{}, { playing: boolean, }> = function() {
 						<Icon icon={use(this.playing).andThen(pause, playArrow)} />
 					</ToggleButton>
 				</div>
+				<div class="corner">
+					<Card variant="elevated">
+						Static Noise Text
+					</Card>
+				</div>
 			</SchemeStyles>
 		</div>
 	)
@@ -43,15 +48,22 @@ App.style = css`
 	:scope :global(.m3dl-scheme-styles) {
 		font: var(--m3dl-font);
 		height: 100%;
-		display: flex;
-		flex-direction: column-reverse;
+		position: relative;
 	}
 
 	.bottom {
+		position: absolute;
+		bottom: 1rem;
+		width: 100%;
 		display: flex;
 		justify-content: center;
-		margin-bottom: 1rem;
 	}
 	.bottom > :global(.m3dl-button) { pointer-events: auto }
+
+	.corner {
+		position: absolute;
+		right: 1rem;
+		bottom: 1rem;
+	}
 `;
 document.querySelector("#app").replaceWith(<App />);
