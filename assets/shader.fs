@@ -78,8 +78,10 @@ void main()
 
 
     float seed = gl_FragCoord.x + fragTexCoord.y;
-    if (t < tmax) {
+    if (t > tmax) {
         seed += float(mod(frameCount, 5000) * blinkRate);
+    } else {
+        seed -= float(mod(frameCount, 5000) * blinkRate);
     }
     color = noise(seed);
     gl_FragColor = color;
