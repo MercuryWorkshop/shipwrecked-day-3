@@ -55,6 +55,7 @@ const App: Component<{}, { playing: boolean, }> = function() {
 App.style = css`
 	:scope :global(.m3dl-scheme-styles) {
 		font: var(--m3dl-font);
+		font-family: var(--m3dl-font);
 		height: 100%;
 		position: relative;
 	}
