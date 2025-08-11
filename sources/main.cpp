@@ -22,8 +22,16 @@ void render_loop() {
   if (enable_render) {
     app.time += GetFrameTime();
     app.frame++;
+    if (IsKeyDown(KEY_UP))
+      app.mix += GetFrameTime() / 10;
+
+    if (IsKeyDown(KEY_DOWN))
+      app.mix -= GetFrameTime() / 10;
   }
+  printf("%f\n", app.mix);
+
   SetShaderValue(app.shader, app.time_loc, &app.time, SHADER_UNIFORM_FLOAT);
+  SetShaderValue(app.shader, app.mix_loc, &app.mix, SHADER_UNIFORM_FLOAT);
   SetShaderValue(app.shader, app.frame_loc, &app.frame, SHADER_UNIFORM_INT);
 
   BeginTextureMode(app.target);
@@ -59,6 +67,7 @@ int main(void) {
   app.shader = LoadShader(0, TextFormat(ASSETS_PATH "shader.fs", GLSL_VERSION));
   app.time_loc = GetShaderLocation(app.shader, "time");
   app.frame_loc = GetShaderLocation(app.shader, "frameCount");
+  app.mix_loc = GetShaderLocation(app.shader, "mix_val");
   app.camera = {};
   app.camera.position = (Vector3){0, 4.0f, 4.0f};
   app.camera.target = (Vector3){0.0f, 1.0f, -1.0f};

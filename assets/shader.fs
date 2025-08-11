@@ -5,6 +5,7 @@ varying vec2 fragTexCoord;
 varying vec4 fragColor;
 
 uniform float time;
+uniform float mix_val;
 uniform int frameCount;
 
 const float resolutionX = 1920.;
@@ -36,9 +37,15 @@ float sdSphere( vec3 p, float s )
   return length(p)-s;
 }
 
+float sdBox( vec3 p, vec3 b )
+{
+  vec3 q = abs(p) - b;
+  return length(max(q,0.0)) + min(max(q.x,max(q.y,q.z)),0.0);
+}
+
 float map( in vec3 pos )
 {
-    return sdTorus(vec3(-pos.y, pos.x, pos.z), vec2(0.2, 0.04));
+    return mix(sdTorus(vec3(-pos.y, pos.x, pos.z), vec2(0.2, 0.04)), sdBox(pos, vec3(0.2)), mix_val);
 }
 
 void main()
