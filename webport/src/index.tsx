@@ -1,7 +1,8 @@
 import { Component, css } from "dreamland/core";
-import { argbFromHex, Card, DynamicScheme, Hct, Icon, SchemeStyles, ToggleButton, Variant } from "m3-dreamland";
+import { argbFromHex, DynamicScheme, Hct, Icon, SchemeStyles, ToggleButton, Button, Variant, Card } from "m3-dreamland";
 import playArrow from "@ktibow/iconset-material-symbols/play-arrow";
 import pause from "@ktibow/iconset-material-symbols/pause";
+import folderOpen from "@ktibow/iconset-material-symbols/folder-open-outline";
 
 let scheme = new DynamicScheme({
 	sourceColorHct: Hct.fromInt(argbFromHex("CBA6F7")),
@@ -31,9 +32,13 @@ const App: Component<{}, { playing: boolean, }> = function() {
 		<div id="app">
 			<SchemeStyles scheme={scheme} motion="expressive">
 				<div class="bottom">
-					<ToggleButton variant="elevated" icon="full" size="xl" value={use(this.playing)}>
+					<ToggleButton variant="elevated" icon="full" size="m" value={use(this.playing)} title={use(this.playing).andThen("Pause", "Resume")}>
 						<Icon icon={use(this.playing).andThen(pause, playArrow)} />
 					</ToggleButton>
+          <Button variant="elevated" icon="left" size="m" on:click={() => { }}>
+            <Icon icon={folderOpen} />
+            <span>Open model</span>
+          </Button>
 				</div>
 				<div class="corner">
 					<Card variant="elevated">
@@ -57,6 +62,8 @@ App.style = css`
 		width: 100%;
 		display: flex;
 		justify-content: center;
+		gap: 1rem;
+		margin-bottom: 1rem;
 	}
 	.bottom > :global(.m3dl-button) { pointer-events: auto }
 
