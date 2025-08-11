@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@ktibow/iconset-material-symbols':
+        specifier: ^0.0.1754804347
+        version: 0.0.1754804347
       dreamland:
         specifier: github:mercuryworkshop/dreamlandjs#vdom
         version: https://codeload.github.com/mercuryworkshop/dreamlandjs/tar.gz/108872e3632bcc9be294ea729ae3944bdb15aacc
@@ -60,6 +63,9 @@ packages:
 
   '@ktibow/iconset-material-symbols@0.0.1752989765':
     resolution: {integrity: sha512-J+gfYidiP0Lr1Gs8J0OsA+128Ay1UrcBjECZBCye4CBLl6KZmVc7su0vqKrkpNEnUxCJFdcC8nZAH8O2XPWurw==}
+
+  '@ktibow/iconset-material-symbols@0.0.1754804347':
+    resolution: {integrity: sha512-Fa5TKzCWzJPOb7raYVm+ULdR/UD8yhCV+knX/BVqEKz4h2BN9skzr09LpSXCB+18ksEQfVgnyuP4yZBsvywt7Q==}
 
   '@ktibow/material-color-utilities-nightly@0.3.11754790331695':
     resolution: {integrity: sha512-HfP818M2UOu9mmNK6NgdgMcZygdyZibDxbPPMsp/7swaQ/ILqIdQDgV3fhWCBV1wDnaD7JkaaJHqUvBZ4z+hTQ==}
@@ -350,6 +356,10 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.4
 
   '@ktibow/iconset-material-symbols@0.0.1752989765':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@ktibow/iconset-material-symbols@0.0.1754804347':
     dependencies:
       '@iconify/types': 2.0.0
 
