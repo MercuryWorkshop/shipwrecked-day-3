@@ -35,10 +35,6 @@ const App: Component<{}, { playing: boolean, }> = function() {
 					<ToggleButton variant="elevated" icon="full" size="m" value={use(this.playing)} title={use(this.playing).andThen("Pause", "Resume")}>
 						<Icon icon={use(this.playing).andThen(pause, playArrow)} />
 					</ToggleButton>
-					<Button variant="elevated" icon="left" size="m" on:click={() => { }}>
-						<Icon icon={folderOpen} />
-						<span>Open model</span>
-					</Button>
 				</div>
 				<div class="corner">
 					<Card variant="elevated">
